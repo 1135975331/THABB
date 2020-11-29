@@ -1,0 +1,32 @@
+name: THABB
+version: ${project.version}
+main: thabb.Main
+api-version: 1.13
+
+commands:
+  ability:
+    start:
+      description: "그냥 시작"
+
+    debug:
+      description: "디버그 전용 명령어들"
+
+      getAbility:
+        description: "능력 얻기"
+        Flandre_Scarlet:
+        Yakumo_Yukari:
+        #Rumia:  아직 구현 안됨
+
+      delAbility:
+        description: "능력 제거"
+        Flandre_Scarlet:
+        Yakumo_Yukari:
+        #Rumia:  아직 구현 안됨
+
+      viewAbility:
+        description: "모든 플레이어의 능력 표시"
+
+      resetCooldown:
+        description: "능력 대기시간 초기화"
+
+
