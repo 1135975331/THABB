@@ -1,14 +1,14 @@
 package thabb.ability.abilities
 
-import thabb.ability.Ability
-import thabb.Main
-import thabb.util.Notes.*
-import thabb.util.sendActionBar
-import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.ChatColor.*
 import org.bukkit.Sound
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.plugin.java.JavaPlugin.getPlugin
 import org.bukkit.scheduler.BukkitRunnable
+import thabb.Main
+import thabb.ability.Ability
+import thabb.util.Notes.*
+import thabb.util.sendActionBar
 
 class AbilityExample : Ability(
 		intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
@@ -79,7 +79,6 @@ class AbilityExample : Ability(
 
 		//구현할 것들 Code here.
 		countdownCooldown(event, cooldown, cooldownInit, SKILL_TYPE, "금괴(우클릭)")
-
 	}
 
 	/*---------------------------------------------------------------------------------------------*/
@@ -110,7 +109,6 @@ class AbilityExample : Ability(
 
 		//구현할 것들 Code here.
 		countdownCooldown(event, cooldown, cooldownInit, SKILL_TYPE, "다이아몬드(우클릭)")
-
 	}
 
 
