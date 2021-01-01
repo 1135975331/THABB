@@ -302,13 +302,18 @@ class TewiInaba : Ability(
 					for(x in 0..range[0] * 2)
 						for(z in 0..range[2] * 2) {
 							val currentLoc = Location(world, startLocation.x + x, startLocation.y + depth, startLocation.z + z)
-							if(depth == range[1])
+							
+							if(activatorLoc == currentLoc)
+								continue
+							else if(depth == range[1])
 								world.spawnParticle(Particle.BLOCK_CRACK, currentLoc, 100, currentLoc.block.blockData)
-							world.getBlockAt(currentLoc).type = Material.AIR
+							
+							currentLoc.block.type = Material.AIR   //world.getBlockAt(currentLoc).type
 						}
 				}
 
 			2 -> {  //모래/자갈 질식
+				activatorLoc.add(0.0, 3.0, 0.0).block.type = Material.OAK_PLANKS
 				val startLocation = Location(world, activatorLoc.x - range[0], activatorLoc.y + 6.0, activatorLoc.z - range[2])
 
 				for(depth in 0..range[1])
@@ -321,7 +326,7 @@ class TewiInaba : Ability(
 
 							val currentLoc = Location(world, startLocation.x + x, startLocation.y + depth, startLocation.z + z)
 							world.spawnParticle(Particle.BLOCK_CRACK, currentLoc, 50, fallingBlock.createBlockData())
-							world.getBlockAt(currentLoc).type = fallingBlock
+							currentLoc.block.type = fallingBlock
 						}
 			}
 		}
