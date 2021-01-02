@@ -1,22 +1,23 @@
 package thabb.ability.abilities
 
-import thabb.ability.Ability
-import thabb.Main
-import thabb.Settings
-import thabb.util.sendActionBar
-import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.ChatColor.*
-import thabb.util.Notes.*
-import org.bukkit.Sound
-import org.bukkit.entity.SmallFireball
-import org.bukkit.plugin.java.JavaPlugin.getPlugin
-import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.Location
 import org.bukkit.Particle
+import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.bukkit.entity.SmallFireball
 import org.bukkit.event.entity.PotionSplashEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.plugin.java.JavaPlugin.getPlugin
+import org.bukkit.scheduler.BukkitRunnable
+import thabb.Main
+import thabb.Settings
+import thabb.ability.Ability
+import thabb.util.Notes.*
+import thabb.util.calcFinalDmg
+import thabb.util.sendActionBar
 
 class MarisaKirisame : Ability(
 		intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
@@ -162,8 +163,8 @@ class MarisaKirisame : Ability(
 		if(closeEntities.isEmpty()) return
 
 		for(entity in closeEntities) {
-			if(entity is LivingEntity && twoDimVelocity > 0.45) { //todo 상대의 방어력을 고려한 데미지로 변경
-				entity.damage(15.0 * (Math.pow((twoDimVelocity), 2.0)/2.0))  //그 엔티티에 현재 속도 비례 대미지, 최대 약16.32(15* 약1.088)대미지  todo 공식 변경
+			if(entity is LivingEntity && twoDimVelocity > 0.25) {
+				entity.damage((17.5 * (Math.pow((twoDimVelocity), 2.0)/2.0)).calcFinalDmg(entity))  //그 엔티티에 현재 속도 비례 대미지, 최대 약16.32(15* 약1.088)대미지  todo 공식 변경
 
 				print("\nVelocity: ${twoDimVelocity} \nFinalVelocity: ${Math.pow((twoDimVelocity), 2.0)/2.0} \nDamaged: ${15.0 * (Math.pow((twoDimVelocity), 2.0)/2.0)} ")  //디버그 전용
 			}
