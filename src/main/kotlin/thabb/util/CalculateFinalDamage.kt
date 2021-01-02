@@ -1,13 +1,16 @@
 package thabb.util
 
 import org.bukkit.Material.*
-import org.bukkit.entity.Player
+import org.bukkit.entity.HumanEntity
+import org.bukkit.entity.LivingEntity
 import java.lang.Math.max
 import java.lang.Math.min
 
-fun Double.calcFinalDmg(player: Player): Double
+fun Double.calcFinalDmg(entity: LivingEntity): Double
 {
-	val inv = player.inventory
+	if(entity !is HumanEntity)  return this
+	
+	val inv = entity.inventory
 	val helmet = inv.helmet
 	val chest = inv.chestplate
 	val legg = inv.leggings
@@ -49,8 +52,6 @@ fun Double.calcFinalDmg(player: Player): Double
 			else -> { /*does nothing*/ }
 		}
 	}
-	
-	
 	
 	var damage = this
 	damage *= (1 - min(20.0, max(defenseP / 5, defenseP - damage / (toughP / 4 + 2))) / 25)
