@@ -12,7 +12,7 @@ import thabb.util.sendActionBar
 
 class AbilityExample : Ability(
 		intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
-		intArrayOf(10, 20, 30, 10, 20, 30),  //설정 대기시간  cooldownInit
+		intArrayOf(10, 20, 30, 10, 30, 40),  //설정 대기시간  cooldownInit
 		intArrayOf(0, 0, 0, 0, 0, 0),  //지속시간  duration
 		intArrayOf(10, 0, 0, 0, 0, 0),  //설정 대기시간  durationInit
 		"Example",
