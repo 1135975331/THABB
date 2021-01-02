@@ -12,9 +12,9 @@ import thabb.util.sendActionBar
 
 class SakuyaIzayoi : Ability(
 	intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
-	intArrayOf(15, 20, 80, 10, 20, 30),  //설정 대기시간  cooldownInit
+	intArrayOf(15, 20, 80, 0, 0, 0),  //설정 대기시간  cooldownInit
 	intArrayOf(0, 0, 0, 0, 0, 0),  //지속시간  duration
-	intArrayOf(0, 0, 0, 0, 0, 0),  //설정 대기시간  durationInit
+	intArrayOf(0, 0, 5, 0, 0, 8),  //설정 대기시간  durationInit
 	"SakuyaIzayoi",
 	"시간을 조종하는 정도의 능력",
 	arrayOf("${WHITE}철괴 좌클릭 : 바라본 방향으로 순식간에 이동한다.  [지속시간 15초]",  //능력의 기술 설명  abilityDesc
