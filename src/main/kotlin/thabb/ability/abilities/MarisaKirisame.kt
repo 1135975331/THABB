@@ -21,13 +21,13 @@ import thabb.util.sendActionBar
 
 class MarisaKirisame : Ability(
 		intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
-		intArrayOf(30, 15, 0, 0, 0, 0),  //설정 대기시간  cooldownInit
+		intArrayOf(30, 15, 30, 0, 0, 0),  //설정 대기시간  cooldownInit
 		intArrayOf(0, 0, 0, 0, 0, 0),  //지속시간  duration
 		intArrayOf(15, 0, 10, 0, 0, 0),  //설정 대기시간  durationInit
 		"MarisaKirisame",
 		"마법을 사용하는 정도의 능력",
 		arrayOf("${WHITE}철괴 좌클릭 : ${GRAY}${STRIKETHROUGH}(빗자루로) ${RESET}잠시동안 날아다닌다.  [지속시간 15초, 대기시간 30초]\n  " +
-					"(단, 효과가 끝나면 ${RED}비행이 풀리므로 낙하 대미지에 주의${WHITE}할 것.)",  //능력의 기술 설명  abilityDesc
+					"(단, 효과가 끝나면 즉시 ${RED}비행이 풀리므로 낙하 대미지에 주의${WHITE}할 것.)",  //능력의 기술 설명  abilityDesc
 				"${GOLD}금괴 좌클릭 : 화염구를 발사한다.  [대기시간 20초]",
 				"${AQUA}다이아몬드 좌클릭 : 상대에게 돌진하여 대미지를 입힌다.  [지속시간 10초, 대기시간 30초]\n  " +
 						"(단, 날고 있는 경우에만 대미지를 입힐 수 있다.)"),
