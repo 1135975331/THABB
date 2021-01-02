@@ -12,14 +12,15 @@ import thabb.util.sendActionBar
 
 class SakuyaIzayoi : Ability(
 	intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
-	intArrayOf(15, 20, 30, 10, 20, 30),  //설정 대기시간  cooldownInit
+	intArrayOf(15, 20, 80, 10, 20, 30),  //설정 대기시간  cooldownInit
 	intArrayOf(0, 0, 0, 0, 0, 0),  //지속시간  duration
 	intArrayOf(0, 0, 0, 0, 0, 0),  //설정 대기시간  durationInit
 	"SakuyaIzayoi",
 	"시간을 조종하는 정도의 능력",
 	arrayOf("${WHITE}철괴 좌클릭 : 바라본 방향으로 순식간에 이동한다.  [지속시간 15초]",  //능력의 기술 설명  abilityDesc
-		"${GOLD}금괴 좌클릭 : 중간 정도의 기술.  [대기시간 20초]",
-		"${AQUA}다이아몬드 좌클릭 : 강한 정도의 기술.  [대기시간 30초]"),
+		"${GOLD}금괴 좌클릭 : 상대에게 대미지를 2번 가한다.  [대기시간 20초]",
+		"${AQUA}다이아몬드 좌클릭 : 자신을 제외한 일정 범위의 모든 엔티티를 정지시킨다.  [대기시간 80초, 지속시간 5초]",
+		"${GRAY}웅크리기 + ${AQUA}다이아몬드 좌클릭 : 자신을 제외한 더 넓은 일정 범위의 모든 엔티티를 정지시킨다.  [대기시간 120초, 지속시간 8초, 발동시간 5초]"),
 	2, /*volume*/floatArrayOf(1.0f), /*instrument*/arrayOf(Sound.BLOCK_NOTE_BLOCK_HARP),
 	arrayOf(floatArrayOf(C2, D2, E2, F2, G2, END)))
 {
