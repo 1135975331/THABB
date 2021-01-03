@@ -1,12 +1,6 @@
 package thabb.command
 
-import thabb.ability.Ability
-import thabb.ability.AbilityList
-import thabb.Settings.canBlocksBeDestroyed
-import thabb.util.playNotes
-import thabb.util.randomIntInRange
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.ChatColor.*
 import org.bukkit.Sound
 import org.bukkit.command.Command
@@ -17,9 +11,13 @@ import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import thabb.Main
 import thabb.Settings
+import thabb.Settings.canBlocksBeDestroyed
+import thabb.ability.Ability
+import thabb.ability.AbilityList
 import thabb.util.Notes
+import thabb.util.playNotes
+import thabb.util.randomIntInRange
 import thabb.util.sendActionBar
-import java.lang.NullPointerException
 
 class CommonCommand(private var plugin: Main) : CommandExecutor
 {
@@ -140,26 +138,26 @@ class CommonCommand(private var plugin: Main) : CommandExecutor
 				}
 			}
 
-		if(sender is Player) {
-			val player = sender
-			if(args[0].equals("desc", true)) {  //개인설정으로 설명을 채팅창에 띄울지 GUI로 띄울지를 추가
-				try {
-					showAbilityInfo(player) //122번 줄
-				}
-				catch(npException: NullPointerException) {  //능력이 없을때(Null일때)
-					player.sendMessage("${BOLD}${RED}에러 : 능력이 없습니다.${RESET}")
-				}
-			}
-			else if(args[0] == "setting") {  //설정  todo 설정 리스트 만들기, 기본적으로 능력중복을 허용할지의 여부 추가
-				if(args[1] == "isBlockExploded") {
-					when(args[2]) {
-						"true", "True"   -> canBlocksBeDestroyed = true
-						"false", "False" -> canBlocksBeDestroyed = false
-						else -> player.sendMessage("${RED}에러 : true(참), false(거짓)만 입력할 수 있습니다.")
+			if(sender is Player) {
+				val player = sender
+				if(args[0].equals("desc", true)) {  //개인설정으로 설명을 채팅창에 띄울지 GUI로 띄울지를 추가
+					try {
+						showAbilityInfo(player) //122번 줄
 					}
-					player.sendMessage("${AQUA}폭발시 블럭 파괴 여부가 ${canBlocksBeDestroyed}로 변경되었습니다.")
+					catch(npException: NullPointerException) {  //능력이 없을때(Null일때)
+						player.sendMessage("${BOLD}${RED}에러 : 능력이 없습니다.${RESET}")
+					}
 				}
-			}
+				else if(args[0] == "setting") {  //설정  todo 설정 리스트 만들기, 기본적으로 능력중복을 허용할지의 여부 추가
+					if(args[1] == "isBlockExploded") {
+						when(args[2]) {
+							"true", "True"   -> canBlocksBeDestroyed = true
+							"false", "False" -> canBlocksBeDestroyed = false
+							else -> player.sendMessage("${RED}에러 : true(참), false(거짓)만 입력할 수 있습니다.")
+						}
+						player.sendMessage("${AQUA}폭발시 블럭 파괴 여부가 ${canBlocksBeDestroyed}로 변경되었습니다.")
+					}
+				}
 
 
 
@@ -175,7 +173,7 @@ class CommonCommand(private var plugin: Main) : CommandExecutor
 						catch(ignored: CommandException) { } //null 떴을때.  무시한다.
 
 						if(hasAbility) {
-							player.sendMessage("${ChatColor.RED}에러 : 이미 능력이 있습니다.")
+							player.sendMessage("${RED}에러 : 이미 능력이 있습니다.")
 						}
 						else {
 							var isCorrect = true  //올바르게 입력했는지의 여부
@@ -191,7 +189,7 @@ class CommonCommand(private var plugin: Main) : CommandExecutor
 								"TewiInaba"      -> ability = AbilityList.TewiInaba
 
 								else -> {
-									player.sendMessage("${ChatColor.RED}에러 : 올바르게 입력해 주세요")
+									player.sendMessage("${RED}에러 : 올바르게 입력해 주세요")
 									isCorrect = false
 								}
 							}
@@ -266,14 +264,14 @@ class CommonCommand(private var plugin: Main) : CommandExecutor
 								playNotes(someAbility.period, someAbility.volume[i], someAbility.instrument[i], someAbility.score[i], player)
 						}
 						catch(npException: NullPointerException) {
-							player.sendMessage("${ChatColor.RED}에러 : 능력이 없습니다. (혹은 뒤에 능력 이름을 적어주세요.)")
+							player.sendMessage("${RED}에러 : 능력이 없습니다. (혹은 뒤에 능력 이름을 적어주세요.)")
 						}
 					}
 					else if(args[1] == "resetCooldown") {  //ability debug resetcooldown
 						//Arrays.fill(abilityPlayerList.get(Player.getName()).cooldown, 0);  //아래 2줄과 동작이 같다.
 						for(i in AbilityList.abilityPlayerList[player.name]!!.cooldown.indices)
 							AbilityList.abilityPlayerList[player.name]!!.cooldown[i] = 0
-						player.sendMessage("${ChatColor.BLUE}대기시간이 초기화 되었습니다.")
+						player.sendMessage("${BLUE}대기시간이 초기화 되었습니다.")
 					}
 				}
 			}
