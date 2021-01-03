@@ -1,25 +1,24 @@
 package thabb.ability.abilities
 
-import thabb.ability.Ability
-import thabb.Main
-import thabb.util.Notes.*
 import org.bukkit.ChatColor.*
+import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.entity.ArmorStand
+import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
+import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin.getPlugin
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType.*
 import org.bukkit.scheduler.BukkitRunnable
-import org.bukkit.entity.ArmorStand
-import org.bukkit.event.block.Action
-import java.lang.NullPointerException
-import org.bukkit.Location
-import org.bukkit.Particle
-import org.bukkit.entity.Entity
+import thabb.Main
+import thabb.ability.Ability
 import thabb.util.*
+import thabb.util.Notes.*
 
 class TewiInaba : Ability(
 		intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
@@ -113,15 +112,15 @@ class TewiInaba : Ability(
 			return
 		}
 
-			val isHarmful = when(randomIntInRange(0, 100)) {
-				in 0..3 -> true
-				else    -> false
-			}
+		val isHarmful = when(randomIntInRange(0, 100)) {
+			in 0..3 -> true
+			else    -> false
+		}
 
 		val potionEffect = if(isHarmful)
-				harmfulEffects[randomIntInRange(0, harmfulEffects.size-1)]
-			else
-				benificalEffects[randomIntInRange(0, benificalEffects.size-1)]
+			harmfulEffects[randomIntInRange(0, harmfulEffects.size-1)]
+		else
+			benificalEffects[randomIntInRange(0, benificalEffects.size-1)]
 
 		val durationTick = when(randomIntInRange(0, 100)) {
 			in 0..25  -> randomIntInRange(60, 200)    //25%  3~10sec
@@ -310,7 +309,7 @@ class TewiInaba : Ability(
 							
 							currentLoc.block.type = Material.AIR   //world.getBlockAt(currentLoc).type
 						}
-				}
+			}
 
 			2 -> {  //모래/자갈 질식
 				activatorLoc.add(0.0, 3.0, 0.0).block.type = Material.OAK_PLANKS
