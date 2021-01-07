@@ -1,17 +1,19 @@
 package thabb
 
-import thabb.event.EventManager
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.java.JavaPlugin
 import thabb.command.CommonCommand
+import thabb.event.EventManager
 
 class Main : JavaPlugin()
 {
 	private lateinit var commands1: CommonCommand
 
 	var jPlugin: JavaPlugin = this
-
+	
+	fun main() {}
+	
 	override fun onEnable()
 	{
 		commands1 = CommonCommand(this)
