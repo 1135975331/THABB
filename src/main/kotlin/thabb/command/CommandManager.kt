@@ -2,12 +2,14 @@ package thabb.command
 
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor.*
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandException
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import thabb.Main
 import thabb.Settings
@@ -263,7 +265,7 @@ class CommonCommand(private var plugin: Main) : CommandExecutor
 							for(i in someAbility.score.indices)
 								playNotes(someAbility.period, someAbility.volume[i], someAbility.instrument[i], someAbility.score[i], player)
 						}
-						catch(npException: NullPointerException) {
+						catch(npException: java.lang.NullPointerException) {
 							player.sendMessage("${RED}에러 : 능력이 없습니다. (혹은 뒤에 능력 이름을 적어주세요.)")
 						}
 					}
@@ -283,12 +285,113 @@ class CommonCommand(private var plugin: Main) : CommandExecutor
 	private fun showAbilityInfo(player: Player)
 	{
 		val abilityName = AbilityList.abilityPlayerList[player.name]!!.abilityName  //~~하는 정도의 능력
-		val abilityDesc = AbilityList.abilityPlayerList[player.name]!!.abilityDesc  //능력 설명
-
+		val abilityDesc = AbilityList.abilityPlayerList[player.name]!!.abilityDesc.toList()  //능력 설명,
+		
+		val abilityDesc2 = mutableListOf<MutableList<String>>() //이차원 배열
+		
+		for(i in abilityDesc.indices)
+			abilityDesc2.addAll(mutableListOf(abilityDesc[i].split(" : ").toMutableList()))
+		
+		val descInv = Bukkit.createInventory(null, 54, abilityName)
+		
+		val abilityNameLabel = ItemStack(Material.NAME_TAG, 1)
+		val abilityNameLabelMeta = abilityNameLabel.itemMeta!!
+		abilityNameLabelMeta.setDisplayName("${WHITE}${BOLD}${abilityName}")
+		abilityNameLabel.itemMeta = abilityNameLabelMeta
+		
+		val cancelButton = ItemStack(Material.BARRIER, 1)
+		val cancelButtonMeta = cancelButton.itemMeta!!
+		cancelButtonMeta.setDisplayName("${BOLD}${RED}닫기")
+		cancelButton.itemMeta = cancelButtonMeta
+		
+		descInv.setItem(4, abilityNameLabel)
+		descInv.setItem(53, cancelButton)
+		
+		for(someDesc in abilityDesc2) {
+			val usage = someDesc[0]
+			val timeDesc = someDesc[2]
+			val skillDesc = someDesc[1]
+			var cautions = ""
+			try { cautions = someDesc[3] } catch(ioobException: IndexOutOfBoundsException) { someDesc.add("") /*<--add someDesc[3]*/ }
+			
+			
+			var isIron = false
+			var isGold = false
+			var isDiamond = false
+			
+			when {
+				usage.contains("철괴")       -> isIron = true
+				usage.contains("금괴")       -> isGold = true
+				usage.contains("다이아몬드") -> isDiamond = true
+				else -> throw Exception("It seemed that there's some typo.")
+			}
+			
+			
+			var needSneak = false
+			var isLeftClick = false
+			var isRightClick = false
+			
+			if(usage.contains("웅크리기"))
+				needSneak = true
+			when {
+				usage.contains("좌클릭") -> isLeftClick = true
+				usage.contains("우클릭") -> isRightClick = true
+				else -> throw Exception("It seemed that there's some typo.")
+			}
+			/*-------------------*/
+			
+			val itemType = when {
+				isIron    -> Material.IRON_INGOT
+				isGold    -> Material.GOLD_INGOT
+				isDiamond -> Material.DIAMOND
+				else      -> throw Exception("It seemed that there's some typo.")
+			}
+			
+			
+			val itemName = ""
+			
+			if(needSneak)
+				itemName.plus("웅크리기 +")
+			when {
+				isLeftClick  -> itemName.plus(" 좌클릭")
+				isRightClick -> itemName.plus(" 우클릭")
+			}
+			
+			
+			var slotNum = 0
+			
+			lateinit var temp: Array<Int>
+			if(needSneak)
+				slotNum++
+			when {
+				isIron    -> temp = arrayOf(11, 15)
+				isGold    -> temp = arrayOf(20, 24)
+				isDiamond -> temp = arrayOf(29, 33)
+			}
+			when {
+				isLeftClick  -> slotNum += temp[0]
+				isRightClick -> slotNum += temp[1]
+			}
+			
+			
+			val item = ItemStack(itemType, 1)
+			val itemMeta = item.itemMeta!!
+			itemMeta.setDisplayName(usage)
+			itemMeta.lore = listOf("${WHITE}${timeDesc}", "", "${WHITE}${skillDesc}", "${RED}${cautions}")
+			item.itemMeta = itemMeta
+			
+			descInv.setItem(slotNum, item)
+		}
+		player.openInventory(descInv)
+		//클릭 시 이벤트에 관해서는 이벤트 클래스 참고
+		
+		
+		/*  //채팅창에 내보내는거
 		player.sendMessage(""); player.sendMessage("")
 		player.sendMessage("${BLUE}~~~~${abilityName}~~~~")
-
+		
 		for(line in abilityDesc)
 			player.sendMessage(line)
+		 */
 	}
 }
