@@ -26,16 +26,16 @@ class MarisaKirisame : Ability(
 		intArrayOf(15, 0, 10, 0, 0, 0),  //설정 대기시간  durationInit
 		"MarisaKirisame",
 		"마법을 사용하는 정도의 능력",
-		arrayOf("${WHITE}철괴 좌클릭 : ${GRAY}${STRIKETHROUGH}(빗자루로) ${RESET}잠시동안 날아다닌다.  [지속시간 15초, 대기시간 30초]\n  " +
-					"(단, 효과가 끝나면 즉시 ${RED}비행이 풀리므로 낙하 대미지에 주의${WHITE}할 것.)",  //능력의 기술 설명  abilityDesc
-				"${GOLD}금괴 좌클릭 : 화염구를 발사한다.  [대기시간 20초]",
-				"${AQUA}다이아몬드 좌클릭 : 상대에게 돌진하여 대미지를 입힌다.  [지속시간 10초, 대기시간 30초]\n  " +
-						"(단, 날고 있는 경우에만 대미지를 입힐 수 있다.)"),
-		2, /*volume*/floatArrayOf(1.0f, 0.8f), /*instrument*/arrayOf(Sound.BLOCK_NOTE_BLOCK_HARP, Sound.BLOCK_NOTE_BLOCK_BASS),
+		arrayOf("${WHITE}철괴 좌클릭 : ${GRAY}${STRIKETHROUGH}(빗자루로) ${RESET}잠시동안 날아다닌다. : [지속시간 15초, 대기시간 30초]" +
+				" : (단, 효과가 끝나면 즉시 ${BOLD}비행이 풀리므로 낙하 대미지에 주의${RESET}${RED}할 것.)",  //능력의 기술 설명  abilityDesc
+				"${GOLD}금괴 좌클릭 : 화염구를 발사한다. : [대기시간 20초]",
+				"${AQUA}다이아몬드 좌클릭 : 상대에게 돌진하여 대미지를 입힌다. : [지속시간 10초, 대기시간 30초]" +
+						" : (단, 날고 있는 경우에만 대미지를 입힐 수 있다.)"),
+		2, /*volume*/floatArrayOf(1.0f), /*instrument*/arrayOf(Sound.BLOCK_NOTE_BLOCK_HARP),
 		arrayOf(floatArrayOf(A2, R, B2, R, C3, R, R, R,  B2, R, C3, R, D3, R, E3, R,  B2, C3, B2, C3, G2, R, E2, R,  A2, END)))
 
 {
-	override fun ironIngotLeft(event: PlayerInteractEvent)
+	override fun ironIngotLeft(event: PlayerInteractEvent)  //TODO 지속시간 기술들에 발동되었다는 메세지 출력시키기, 변경사항 커밋/푸시하기
 	{
 		val player = event.player
 		val SKILL_TYPE = SkillType.IRON_LEFT

@@ -1,18 +1,17 @@
 package thabb.ability.abilities
 
+import org.bukkit.ChatColor.*
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.block.Block
 import org.bukkit.event.block.Action
-import thabb.ability.Ability
+import org.bukkit.event.player.PlayerInteractEvent
 import thabb.Settings.canBlocksBeDestroyed
+import thabb.ability.Ability
+import thabb.util.Notes.*
 import thabb.util.randomRealNumInRange
 import thabb.util.sendActionBar
-import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.ChatColor.*
-import thabb.util.Notes.*
-import org.bukkit.Sound
-import java.lang.NullPointerException
 
 class FlandreScarlet : Ability(
 		intArrayOf(0, 0, 0, 0, 0, 0),  //현재 대기시간  cooldown
@@ -21,12 +20,12 @@ class FlandreScarlet : Ability(
 		intArrayOf(0, 0, 0, 0, 0, 0),  //설정 대기시간  durationInit
 		"FlandreScarlet",
 		"모든 사물을 파괴하는 정도의 능력",
-		arrayOf("${WHITE}철괴 좌클릭 : 바라보는 블럭을 파괴한다.  [대기시간 10초]",  //능력의 기술 설명  abilityDesc
-				"${GOLD}금괴 좌클릭 : 레바테인을 휘두른다.  [대기시간 20초]",
-				"${AQUA}다이아몬드 좌클릭 : 블럭의 눈을 눌러 블럭을 파괴한다.  [대기시간 60초]",
-				"${AQUA}다이아몬드 우클릭 : 블럭의 눈을 손 위에 둔다.  [대기시간 5초]"),
-		3, /*volume*/floatArrayOf(1.0f, 0.8f), /*instrument*/arrayOf(Sound.BLOCK_NOTE_BLOCK_HARP, Sound.BLOCK_NOTE_BLOCK_BASS),
-		arrayOf(floatArrayOf(A2, R, E2, R, B2, R, C3, R,  B2, R, C3, B2, A2, R, G2, R, A2, END), floatArrayOf(END)))
+		arrayOf("${WHITE}철괴 좌클릭 : 바라보는 블럭을 파괴한다. : [대기시간 10초]",  //능력의 기술 설명  abilityDesc
+				"${GOLD}금괴 좌클릭 : 레바테인을 휘두른다. : [대기시간 20초]",
+				"${AQUA}다이아몬드 좌클릭 : 블럭의 눈을 눌러 블럭을 파괴한다. : [대기시간 60초]",
+				"${AQUA}다이아몬드 우클릭 : 블럭의 눈을 손 위에 둔다. : [대기시간 5초]"),
+		2, /*volume*/floatArrayOf(1.0f), /*instrument*/arrayOf(Sound.BLOCK_NOTE_BLOCK_HARP),
+		arrayOf(floatArrayOf(A2, R, E2, R, B2, R, C3, R,  B2, R, C3, B2, A2, R, G2, R, A2, END)))
 {
 	override fun ironIngotLeft(event: PlayerInteractEvent)
 	{
