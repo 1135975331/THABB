@@ -1,8 +1,5 @@
 package thabb.event
 
-import thabb.ability.abilities.MarisaKirisame
-import thabb.ability.abilities.TewiInaba
-import thabb.ability.AbilityList
 import org.bukkit.Material
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Player
@@ -14,10 +11,29 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.PotionSplashEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.entity.ProjectileLaunchEvent
+import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerMoveEvent
+import thabb.ability.AbilityList
+import thabb.ability.abilities.MarisaKirisame
+import thabb.ability.abilities.TewiInaba
 
 class EventManager : Listener {
+	@EventHandler
+	fun onAbilityDescInvClicked(event: InventoryClickEvent)
+	{
+		val player = event.view.player as Player
+		
+		
+		if(!event.view.title.contains("정도의 능력"))  return
+		
+		val clickedItemType = event.currentItem?.type ?: return
+		if(clickedItemType == Material.BARRIER)
+			player.closeInventory()
+		else
+			event.isCancelled = true
+	}
+	
 	@EventHandler
 	fun onPlayerInteractEvent(event: PlayerInteractEvent) //PlayerInteractEvent가 발생했을때
 	{
