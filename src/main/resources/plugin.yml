@@ -2,6 +2,9 @@ name: THABB
 version: ${project.version}
 main: thabb.Main
 api-version: 1.13
+author: asdf49514
+description: minecraft plugin
+
 
 commands:
   ability:
